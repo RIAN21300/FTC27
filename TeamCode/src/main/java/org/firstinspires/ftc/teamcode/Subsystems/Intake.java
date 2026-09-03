@@ -15,4 +15,9 @@ public class Intake implements Subsystem {
 
     public Command setOn = new SetPower(motor, 1.0).requires(this);
     public Command setOff = new SetPower(motor, 0.0).requires(this);
+
+    @Override
+    public void initialize() {
+        setOff.schedule();
+    }
 }

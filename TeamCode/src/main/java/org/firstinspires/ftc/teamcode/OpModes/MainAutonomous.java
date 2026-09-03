@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 import dev.nextftc.core.commands.Command;
 import dev.nextftc.core.commands.delays.Delay;
+import dev.nextftc.core.commands.groups.ParallelGroup;
 import dev.nextftc.core.commands.groups.SequentialGroup;
 import dev.nextftc.core.components.SubsystemComponent;
 import dev.nextftc.extensions.pedro.FollowPath;
@@ -30,32 +31,36 @@ public class MainAutonomous extends NextFTCOpMode {
 
     private PathChain path1, path2;
 
-    public void buildPaths() {
-        path1 = PedroComponent.follower().pathBuilder()
-                .addPath(new BezierLine(startPose, pose2))
-                .setLinearHeadingInterpolation(startPose.getHeading(), pose2.getHeading())
+    PathChain LinePath(Pose A, Pose B) {
+        return PedroComponent.follower().pathBuilder()
+                .addPath(new BezierLine(A, B))
+                .setLinearHeadingInterpolation(A.getHeading(), B.getHeading())
                 .build();
+    }
 
-        path2 = PedroComponent.follower().pathBuilder()
-                .addPath(new BezierLine(pose2, startPose))
-                .setLinearHeadingInterpolation(pose2.getHeading(), startPose.getHeading())
-                .build();
+    public void buildPaths() {
+        path1 = LinePath(startPose, pose2);
+        path2 = LinePath(pose2, startPose);
     }
 
     private Command autonomousRoutine() {
         return new SequentialGroup(
-                new FollowPath(path1),
-                Intake.INSTANCE.setOn,
+                new ParallelGroup(
+                        new FollowPath(path1),
+                        Intake.INSTANCE.setOn
+                ),
                 new Delay(2),
-                Intake.INSTANCE.setOff,
-                new FollowPath(path2)
+                new ParallelGroup(
+                        new FollowPath(path2),
+                        Intake.INSTANCE.setOff
+                )
         );
     }
 
     @Override
     public void onInit() {
-        buildPaths();
         PedroComponent.follower().setStartingPose(startPose);
+        buildPaths();
     }
 
     @Override
