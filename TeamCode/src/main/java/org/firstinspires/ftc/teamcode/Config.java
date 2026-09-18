@@ -19,4 +19,3 @@ public class Config {
         public static final double speed = 1.0;
     }
 }
-//
