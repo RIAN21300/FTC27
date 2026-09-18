@@ -14,4 +14,8 @@ public class Config {
         public static final int port = 0;
         public static final double speed = 1.0;
     }
+    public static class Shooter {
+        public static final int port = 0;
+        public static final double speed = 1.0;
+    }
 }
