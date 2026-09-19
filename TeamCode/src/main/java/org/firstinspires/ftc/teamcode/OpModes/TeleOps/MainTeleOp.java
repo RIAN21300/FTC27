@@ -28,6 +28,8 @@ public class MainTeleOp extends NextOpMode {
         robot.drivetrain.start(gamepad1);
 
         robot.intake.start(driver2);
+
+        robot.shooter.start(driver2);
     }
 
     @Override
