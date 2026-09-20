@@ -10,7 +10,6 @@ import dev.nextftc.robot.triggers.CommandGamepad;
 @NextTeleop(name = "Main TeleOp")
 public class MainTeleOp extends NextOpMode {
     private final RIANRobot robot;
-    CommandGamepad driver1 = new CommandGamepad(gamepad1);
     CommandGamepad driver2 = new CommandGamepad(gamepad2);
 
     public MainTeleOp(RIANRobot robot) {
@@ -28,8 +27,8 @@ public class MainTeleOp extends NextOpMode {
         robot.drivetrain.start(gamepad1);
 
         robot.intake.start(driver2);
-
         robot.shooter.start(driver2);
+        robot.geckoWheel.start(driver2);
     }
 
     @Override

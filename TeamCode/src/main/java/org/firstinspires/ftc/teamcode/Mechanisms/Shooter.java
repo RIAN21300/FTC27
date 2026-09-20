@@ -18,9 +18,4 @@ public class Shooter implements Mechanism {
                 .onTrue(instant(() -> motor.setThrottle(Config.Shooter.speed)))
                 .onFalse(instant(() -> motor.setThrottle(0.0)));
     }
-
-    @Override
-    public void periodic() {
-
-    }
 }
