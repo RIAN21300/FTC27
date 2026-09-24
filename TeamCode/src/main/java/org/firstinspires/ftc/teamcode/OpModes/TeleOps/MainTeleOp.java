@@ -34,6 +34,7 @@ public class MainTeleOp extends NextOpMode {
     @Override
     public void periodic() {
 
+        telemetry.update();
     }
 
     @Override
