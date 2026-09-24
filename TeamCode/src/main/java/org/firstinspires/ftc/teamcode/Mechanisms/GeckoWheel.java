@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Mechanisms;
 
+import com.pedropathing.ivy.Command;
+
 import org.firstinspires.ftc.teamcode.Config;
 
 import dev.nextftc.hardware.RobotController;
@@ -13,9 +15,17 @@ public class GeckoWheel implements Mechanism {
             Config.GeckoWheel.port
     );
 
+    public Command setOn() {
+        return instant(() -> crServo.setPower(Config.GeckoWheel.power));
+    }
+
+    public Command setOff() {
+        return instant(() -> crServo.setPower(0.0));
+    }
+
     public void start(CommandGamepad commandGamepad) {
         commandGamepad.triangle()
-                .whileTrue(instant(() -> crServo.setPower(Config.GeckoWheel.power)))
-                .whileFalse(instant(() -> crServo.setPower(0.0)));
+                .whileTrue(setOn())
+                .whileFalse(setOff());
     }
 }
