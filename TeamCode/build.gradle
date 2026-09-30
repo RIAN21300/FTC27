@@ -1,4 +1,20 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+        maven {
+            url 'https://repo.dairy.foundation/releases'
+        }
+    }
+
+    dependencies {
+        classpath 'dev.frozenmilk:Load:0.3.2'
+    }
+}
+
 apply plugin: 'com.android.application'
+
+apply plugin: 'dev.frozenmilk.sinister.sloth.load'
 
 //
 // build.gradle in TeamCode
@@ -30,6 +46,8 @@ dependencies {
     implementation 'dev.nextftc.v2:control:0.2.1'
     implementation 'dev.nextftc.v2:hardware:0.2.1'
     implementation 'dev.nextftc.v2:robot:0.2.1'
+
+    implementation 'dev.frozenmilk.sinister:Sloth:0.3.2'
 }
 
 repositories {
