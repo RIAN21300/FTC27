@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes.TeleOps;
 
-import org.firstinspires.ftc.teamcode.RIANRobot;
+import org.firstinspires.ftc.teamcode.Robots.MainRobot;
 
 import dev.nextftc.robot.opmode.BulkReadHook;
 import dev.nextftc.robot.opmode.NextOpMode;
@@ -9,10 +9,10 @@ import dev.nextftc.robot.triggers.CommandGamepad;
 
 @NextTeleop(name = "Main TeleOp")
 public class MainTeleOp extends NextOpMode {
-    private final RIANRobot robot;
+    private final MainRobot robot;
     CommandGamepad driver2 = new CommandGamepad(gamepad2);
 
-    public MainTeleOp(RIANRobot robot) {
+    public MainTeleOp(MainRobot robot) {
         super(robot, BulkReadHook.INSTANCE);
         this.robot = robot;
     }

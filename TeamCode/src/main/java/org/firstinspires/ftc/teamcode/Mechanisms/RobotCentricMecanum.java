@@ -9,7 +9,7 @@ import dev.nextftc.hardware.actuators.NextMotor;
 import dev.nextftc.robot.Mechanism;
 import dev.nextftc.robot.drive.DriveCommands;
 
-public class Drivetrain implements Mechanism {
+public class RobotCentricMecanum implements Mechanism {
     public final NextMotor frontLeft = new NextMotor(
             RobotController.controlHub(),
             Config.Drivetrain.port.front_left
