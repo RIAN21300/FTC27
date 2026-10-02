@@ -12,7 +12,7 @@ import static com.pedropathing.ivy.Scheduler.schedule;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 import static com.pedropathing.ivy.groups.Groups.*;
 
-import org.firstinspires.ftc.teamcode.RIANRobot;
+import org.firstinspires.ftc.teamcode.Robots.MainRobot;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 import dev.nextftc.robot.opmode.BulkReadHook;
@@ -22,7 +22,7 @@ import dev.nextftc.robot.triggers.CommandGamepad;
 
 @NextAutonomous(name = "Main Autonomous")
 public class MainAutonomous extends NextOpMode {
-    private final RIANRobot robot;
+    private final MainRobot robot;
     CommandGamepad driver = new CommandGamepad(gamepad1);
     private final Follower follower;
     private final PoseFactory poseFactory = PoseFactory.degrees();
@@ -32,7 +32,7 @@ public class MainAutonomous extends NextOpMode {
     private final Pose scorePose = poseFactory.of(48, 72, 180);
     private final Pose parkPose = poseFactory.of(24, 24, 90);
 
-    public MainAutonomous(RIANRobot robot) {
+    public MainAutonomous(MainRobot robot) {
         super(robot, BulkReadHook.INSTANCE);
         this.robot = robot;
 
