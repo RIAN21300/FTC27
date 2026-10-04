@@ -1,6 +1,8 @@
-package org.firstinspires.ftc.teamcode.Robots;
+package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
+
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.Mechanisms.RobotCentricMecanum;
 import org.firstinspires.ftc.teamcode.Mechanisms.GeckoWheel;
@@ -11,6 +13,7 @@ import java.util.Set;
 
 import dev.nextftc.robot.Mechanism;
 import dev.nextftc.robot.NextRobot;
+import dev.nextftc.robot.triggers.CommandGamepad;
 
 public class MainRobot implements NextRobot {
     public final RobotCentricMecanum drivetrain = new RobotCentricMecanum();
@@ -27,5 +30,15 @@ public class MainRobot implements NextRobot {
                 shooter,
                 geckoWheel
         );
+    }
+
+    public void start(Gamepad gamepad1, Gamepad gamepad2) {
+        CommandGamepad driver2 = new CommandGamepad(gamepad2);
+
+        drivetrain.start(gamepad1);
+
+        intake.start(driver2);
+        shooter.start(driver2);
+        geckoWheel.start(driver2);
     }
 }

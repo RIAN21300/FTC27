@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes.Autos;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.ivy.Command;
@@ -12,9 +13,10 @@ import static com.pedropathing.ivy.Scheduler.schedule;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 import static com.pedropathing.ivy.groups.Groups.*;
 
-import org.firstinspires.ftc.teamcode.Robots.MainRobot;
+import org.firstinspires.ftc.teamcode.MainRobot;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
+import dev.nextftc.robot.Telemetry;
 import dev.nextftc.robot.opmode.BulkReadHook;
 import dev.nextftc.robot.opmode.NextAutonomous;
 import dev.nextftc.robot.opmode.NextOpMode;
@@ -41,6 +43,8 @@ public class MainAutonomous extends NextOpMode {
         follower = Constants.create(hardwareMap);
         follower.setPose(startPose);
         follower.update();
+
+        Telemetry.addBackend(FtcDashboard.getInstance().getTelemetry());
     }
 
     private Path LinearLine(Pose A, Pose B) {
@@ -85,11 +89,10 @@ public class MainAutonomous extends NextOpMode {
         follower.update();
         Scheduler.execute();
 
-        telemetry.addData("X", follower.pose().x());
-        telemetry.addData("Y", follower.pose().y());
-        telemetry.addData("Heading", Math.toDegrees(follower.pose().heading()));
-        telemetry.addData("Follower Mode", follower.mode());
-        telemetry.update();
+        Telemetry.log("X", follower.pose().x());
+        Telemetry.log("Y", follower.pose().y());
+        Telemetry.log("Heading", Math.toDegrees(follower.pose().heading()));
+        Telemetry.log("Follower Mode", follower.mode());
     }
 
     @Override
