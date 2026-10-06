@@ -41,4 +41,9 @@ public class MainRobot implements NextRobot {
         shooter.start(driver2);
         geckoWheel.start(driver2);
     }
+
+    @Override
+    public void periodic() {
+        
+    }
 }

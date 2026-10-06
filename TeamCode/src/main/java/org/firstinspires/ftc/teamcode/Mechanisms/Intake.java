@@ -16,7 +16,7 @@ public class Intake implements Mechanism {
     );
 
     public Command setOn() {
-        return instant(() -> motor.setThrottle(Config.Intake.speed));
+        return instant(() -> motor.setThrottle(Config.Intake.power));
     }
 
     public Command setOff() {

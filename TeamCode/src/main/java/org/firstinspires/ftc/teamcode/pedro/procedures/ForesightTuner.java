@@ -448,7 +448,7 @@ class HeadingBraking extends TuningOpMode<List<Double>> {
 //    private VoltageSensor voltageSensor;
 
     public HeadingBraking(Function<HardwareMap, Localizer> localizerFunction, Function<HardwareMap, Drivetrain> drivetrainFunction) {
-        super("Heading Braking", "A tuner for finding the Heading Braking Coefficients. The robot will turn back at forth at various speed levels.", false);
+        super("Heading Braking", "A tuner for finding the Heading Braking Coefficients. The robot will turn back at forth at various power levels.", false);
 
         this.localizerFunction = localizerFunction;
         this.drivetrainFunction = drivetrainFunction;

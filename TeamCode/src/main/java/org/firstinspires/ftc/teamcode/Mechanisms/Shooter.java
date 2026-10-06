@@ -4,9 +4,12 @@ import com.pedropathing.ivy.Command;
 
 import org.firstinspires.ftc.teamcode.Config;
 
+import dev.nextftc.control.feedback.PIDCoefficients;
+import dev.nextftc.control.feedback.PIDController;
 import dev.nextftc.hardware.RobotController;
 import dev.nextftc.hardware.actuators.NextMotor;
 import dev.nextftc.robot.Mechanism;
+import dev.nextftc.robot.Telemetry;
 import dev.nextftc.robot.triggers.CommandGamepad;
 
 public class Shooter implements Mechanism {
@@ -15,17 +18,23 @@ public class Shooter implements Mechanism {
             Config.Shooter.port
     );
 
-    public Command setOn() {
-        return instant(() -> motor.setThrottle(Config.Shooter.speed));
-    }
+    private PIDController pid = new PIDController(new PIDCoefficients(
+            1e-3,
+            0.0,
+            0.0
+    )); // TODO: tune this later
 
-    public Command setOff() {
-        return instant(() -> motor.setThrottle(0.0));
+    private double error() {
+        return Config.Shooter.goalEncoderVelocity - motor.getEncoderVelocity().getMagnitude();
     }
 
     public void start(CommandGamepad commandGamepad) {
-        commandGamepad.rightBumper()
-                .onTrue(setOn())
-                .onFalse(setOff());
+        // TODO: program this
+    }
+
+    @Override
+    public void periodic() {
+        Telemetry.log("Shooter velocity", motor.getEncoderVelocity().getMagnitude());
+        Telemetry.log("Shooter velocity goal", Config.Shooter.goalEncoderVelocity);
     }
 }

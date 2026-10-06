@@ -12,12 +12,14 @@ public class Config {
 
     public static class Intake {
         public static final int port = 0;
-        public static final double speed = 1.0;
+        public static final double power = 1.0;
     }
 
     public static class Shooter {
         public static final int port = 1;
-        public static final double speed = 0.6;
+        public static final double maxEncoderVelocity = 2000.0; // TODO: measure this
+        public static final double relVelocity = 0.6;
+        public static final double goalEncoderVelocity = relVelocity * maxEncoderVelocity;
     }
 
     public static class GeckoWheel {

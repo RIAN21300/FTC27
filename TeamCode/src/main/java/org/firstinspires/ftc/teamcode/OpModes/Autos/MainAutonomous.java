@@ -63,10 +63,10 @@ public class MainAutonomous extends NextOpMode {
                 ),
                 waitMs(3000),
                 robot.intake.setOff(),
-                parallel(
-                        follow(follower, toScore()),
-                        robot.shooter.setOn()
-                ),
+//                parallel(
+//                        follow(follower, toScore()),
+//                        robot.shooter.setOn()
+//                ),
                 robot.geckoWheel.setOn(),
                 waitMs(1500),
                 robot.geckoWheel.setOff(),
