@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Mechanisms;
 
 import com.pedropathing.ivy.Command;
 
-import org.firstinspires.ftc.teamcode.Config;
+import org.firstinspires.ftc.teamcode.MainConfig;
 
 import dev.nextftc.hardware.RobotController;
 import dev.nextftc.hardware.actuators.NextMotor;
@@ -11,12 +11,12 @@ import dev.nextftc.robot.triggers.CommandGamepad;
 
 public class Intake implements Mechanism {
     NextMotor motor = new NextMotor(
-            RobotController.expansionHub(),
-            Config.Intake.port
+            RobotController.controlHub(),
+            MainConfig.Intake.port
     );
 
     public Command setOn() {
-        return instant(() -> motor.setThrottle(Config.Intake.power));
+        return instant(() -> motor.setThrottle(MainConfig.Intake.power));
     }
 
     public Command setOff() {

@@ -55,25 +55,6 @@ public class MainAutonomous extends NextOpMode {
     private Path toScore() { return LinearLine(intakePose, scorePose); }
     private Path toPark() { return LinearLine(scorePose, parkPose); }
 
-    private Command routine() {
-        return sequential(
-                parallel(
-                        follow(follower, toIntake()),
-                        robot.intake.setOn()
-                ),
-                waitMs(3000),
-                robot.intake.setOff(),
-//                parallel(
-//                        follow(follower, toScore()),
-//                        robot.shooter.setOn()
-//                ),
-                robot.geckoWheel.setOn(),
-                waitMs(1500),
-                robot.geckoWheel.setOff(),
-                follow(follower, toPark())
-        );
-    }
-
     @Override
     public void disabledPeriodic() {
 
@@ -81,7 +62,7 @@ public class MainAutonomous extends NextOpMode {
 
     @Override
     public void start() {
-        schedule(routine());
+
     }
 
     @Override
