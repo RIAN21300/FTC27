@@ -18,7 +18,7 @@ public class Config {
     public static class Shooter {
         public static final int port = 1;
         public static final double maxEncoderVelocity = 2000.0; // TODO: measure this
-        public static final double relVelocity = 0.6;
+        public static final double relVelocity = 0.6; // TODO: tune this later
         public static final double goalEncoderVelocity = relVelocity * maxEncoderVelocity;
     }
 

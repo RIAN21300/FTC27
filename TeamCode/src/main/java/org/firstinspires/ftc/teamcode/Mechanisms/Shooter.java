@@ -28,8 +28,15 @@ public class Shooter implements Mechanism {
         return Config.Shooter.goalEncoderVelocity - motor.getEncoderVelocity().getMagnitude();
     }
 
+    private final Command maintainVelocity = Command.build()
+            .setExecute(() -> motor.setThrottle(pid.calculate(error())))
+            .setEnd(endCondition -> motor.setThrottle(0.0))
+            .requiring(motor);
+
     public void start(CommandGamepad commandGamepad) {
-        // TODO: program this
+        commandGamepad
+                .leftBumper()
+                .toggleOnTrue(maintainVelocity);
     }
 
     @Override
