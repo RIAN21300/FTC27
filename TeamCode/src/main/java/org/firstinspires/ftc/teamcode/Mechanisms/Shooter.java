@@ -7,6 +7,8 @@ import org.firstinspires.ftc.teamcode.MainConfig;
 
 import dev.nextftc.control.feedback.PIDCoefficients;
 import dev.nextftc.control.feedback.PIDController;
+import dev.nextftc.control.feedforward.SimpleFFCoefficients;
+import dev.nextftc.control.feedforward.SimpleFeedforward;
 import dev.nextftc.hardware.RobotController;
 import dev.nextftc.hardware.actuators.NextMotor;
 import dev.nextftc.robot.Mechanism;
@@ -19,32 +21,53 @@ public class Shooter implements Mechanism {
             MainConfig.Shooter.port
     );
 
-    private PIDController pid = new PIDController(new PIDCoefficients(
+    private final PIDController pid = new PIDController(new PIDCoefficients(
             MainConfig.Shooter.PIDCoefficient.kP,
             MainConfig.Shooter.PIDCoefficient.kI,
             MainConfig.Shooter.PIDCoefficient.kD
     ));
 
+    private final SimpleFeedforward ff = new SimpleFeedforward(new SimpleFFCoefficients(
+            MainConfig.Shooter.FFCoefficient.kS,
+            MainConfig.Shooter.FFCoefficient.kV
+    ));
+
+    private double velocity() {
+        return motor.getEncoderVelocity().getMagnitude();
+    }
+
     private double error() {
-        return MainConfig.Shooter.goalEncoderVelocity - motor.getEncoderVelocity().getMagnitude();
+        return MainConfig.Shooter.goalEncoderVelocity - velocity();
     }
 
     private final Command maintainVelocity = Command.build()
             .setExecute(() -> motor.setThrottle(
-                    Range.clip(pid.calculate(error()), -1.0, 1.0)
+                    Range.clip(
+                            pid.calculate(error()) + ff.calculate(velocity()),
+                            -1.0,
+                            1.0
+                    )
             ))
             .setEnd(endCondition -> motor.setThrottle(0.0))
             .requiring(motor);
 
+    // For calculating Feedforward coefficient
+    private Command test(double power) {
+        return Command.build()
+                .setExecute(() -> motor.setThrottle(power))
+                .setEnd(endCondition -> motor.setThrottle(0.0))
+                .requiring(motor);
+    }
+
     public void start(CommandGamepad commandGamepad) {
         commandGamepad
                 .leftBumper()
-                .toggleOnTrue(maintainVelocity);
+                .toggleOnTrue(test(MainConfig.Shooter.testPower));
     }
 
     @Override
     public void periodic() {
-        Telemetry.log("Shooter velocity", motor.getEncoderVelocity());
+        Telemetry.log("Shooter velocity", velocity());
         Telemetry.log("Shooter velocity goal", MainConfig.Shooter.goalEncoderVelocity);
     }
 }

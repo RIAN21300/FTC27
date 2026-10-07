@@ -17,6 +17,7 @@ public class MainConfig {
         public static final double power = 1.0;
     }
 
+    @Config
     public static class Shooter {
         public static final int port = 1;
         public static final double maxEncoderVelocity = 2000.0;
@@ -29,6 +30,14 @@ public class MainConfig {
             public static double kI = 1e-3;
             public static double kD = 0.0;
         }
+
+        @Config
+        public static class FFCoefficient {
+            public static double kS = 1e-3; // TODO: measuring needed
+            public static double kV = 1e-3;
+        }
+
+        public static double testPower = 0.1;
     }
 
     public static class GeckoWheel {
