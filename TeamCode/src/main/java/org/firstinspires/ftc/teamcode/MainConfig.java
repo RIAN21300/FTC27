@@ -37,7 +37,7 @@ public class MainConfig {
             public static double kV = 1e-3;
         }
 
-        public static double testPower = 0.1;
+        public static double testPower = 0.5;
     }
 
     public static class GeckoWheel {

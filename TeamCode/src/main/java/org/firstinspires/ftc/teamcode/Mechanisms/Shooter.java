@@ -69,5 +69,6 @@ public class Shooter implements Mechanism {
     public void periodic() {
         Telemetry.log("Shooter velocity", velocity());
         Telemetry.log("Shooter velocity goal", MainConfig.Shooter.goalEncoderVelocity);
+        Telemetry.log("zero", 0.0);
     }
 }
