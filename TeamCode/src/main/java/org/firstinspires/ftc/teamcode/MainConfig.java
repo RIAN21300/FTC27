@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.acmerobotics.dashboard.config.Config;
-
 public class MainConfig {
     public static class Drivetrain {
         public static class port {
@@ -17,31 +15,21 @@ public class MainConfig {
         public static final double power = 1.0;
     }
 
-    @Config
     public static class Shooter {
         public static final int port = 1;
         public static final double maxEncoderVelocity = 2000.0;
         public static final double relVelocity = 0.6; // TODO: tune this later
         public static final double goalEncoderVelocity = relVelocity * maxEncoderVelocity;
 
-        @Config
         public static class PIDCoefficient {
-            public static double kP = 2e-2;
-            public static double kI = 1e-3;
-            public static double kD = 0.0;
+            public static final double kP = 4e-3;
+            public static final double kI = 0.0;
+            public static final double kD = 0.0;
         }
 
-        @Config
         public static class FFCoefficient {
-            public static double kS = 1e-3; // TODO: measuring needed
-            public static double kV = 1e-3;
+            public static final double kS = 0.1;
+            public static final double kV = 4.5e-4;
         }
-
-        public static double testPower = 0.5;
-    }
-
-    public static class GeckoWheel {
-        public static final int port = 0;
-        public static final double power = 1.0;
     }
 }

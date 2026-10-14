@@ -27,12 +27,14 @@ public class RobotCentricMecanum implements Mechanism {
             MainConfig.Drivetrain.port.front_right
     );
 
-    public void start(Gamepad gamepad) {
+    public void init() {
         frontLeft.setDirection(NextMotor.Direction.REVERSE);
         backLeft.setDirection(NextMotor.Direction.REVERSE);
         backRight.setDirection(NextMotor.Direction.FORWARD);
         frontRight.setDirection(NextMotor.Direction.FORWARD);
+    }
 
+    public void manual(Gamepad gamepad) {
         DriveCommands.mecanumDrive(
                 frontLeft,
                 frontRight,

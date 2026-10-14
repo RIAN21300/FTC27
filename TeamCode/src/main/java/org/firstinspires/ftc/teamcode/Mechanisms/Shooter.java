@@ -14,6 +14,7 @@ import dev.nextftc.hardware.actuators.NextMotor;
 import dev.nextftc.robot.Mechanism;
 import dev.nextftc.robot.Telemetry;
 import dev.nextftc.robot.triggers.CommandGamepad;
+import dev.nextftc.robot.triggers.Trigger;
 
 public class Shooter implements Mechanism {
     NextMotor motor = new NextMotor(
@@ -32,7 +33,7 @@ public class Shooter implements Mechanism {
             MainConfig.Shooter.FFCoefficient.kV
     ));
 
-    private double velocity() {
+    public double velocity() {
         return motor.getEncoderVelocity().getMagnitude();
     }
 
@@ -40,10 +41,10 @@ public class Shooter implements Mechanism {
         return MainConfig.Shooter.goalEncoderVelocity - velocity();
     }
 
-    private final Command maintainVelocity = Command.build()
+    public final Command maintainVelocity = Command.build()
             .setExecute(() -> motor.setThrottle(
                     Range.clip(
-                            pid.calculate(error()) + ff.calculate(velocity()),
+                            pid.calculate(error()) + ff.calculate(MainConfig.Shooter.goalEncoderVelocity),
                             -1.0,
                             1.0
                     )
@@ -51,24 +52,11 @@ public class Shooter implements Mechanism {
             .setEnd(endCondition -> motor.setThrottle(0.0))
             .requiring(motor);
 
-    // For calculating Feedforward coefficient
-    private Command test(double power) {
-        return Command.build()
-                .setExecute(() -> motor.setThrottle(power))
-                .setEnd(endCondition -> motor.setThrottle(0.0))
-                .requiring(motor);
-    }
-
-    public void start(CommandGamepad commandGamepad) {
-        commandGamepad
-                .leftBumper()
-                .toggleOnTrue(test(MainConfig.Shooter.testPower));
-    }
-
     @Override
     public void periodic() {
         Telemetry.log("Shooter velocity", velocity());
-        Telemetry.log("Shooter velocity goal", MainConfig.Shooter.goalEncoderVelocity);
+        Telemetry.log("Shooter max velocity", MainConfig.Shooter.maxEncoderVelocity);
+        Telemetry.log("Shooter goal velocity", MainConfig.Shooter.goalEncoderVelocity);
         Telemetry.log("zero", 0.0);
     }
 }
