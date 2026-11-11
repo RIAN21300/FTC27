@@ -17,19 +17,20 @@ public class MainConfig {
 
     public static class Shooter {
         public static final int port = 1;
+        public static final int servoPort = 0;
         public static final double maxEncoderVelocity = 2000.0;
-        public static final double relVelocity = 0.6; // TODO: tune this later
-        public static final double goalEncoderVelocity = relVelocity * maxEncoderVelocity;
+        public static final double[] relVelocity = {0.0, 0.8, 0.6};
+        public static final double[] position = {0.0, 0.0, 1.0};
 
         public static class PIDCoefficient {
-            public static final double kP = 4e-3;
+            public static final double kP = 8e-3;
             public static final double kI = 0.0;
             public static final double kD = 0.0;
         }
 
         public static class FFCoefficient {
-            public static final double kS = 0.1;
-            public static final double kV = 4.5e-4;
+            public static final double kS = 0.2;
+            public static final double kV = 4e-4;
         }
     }
 }

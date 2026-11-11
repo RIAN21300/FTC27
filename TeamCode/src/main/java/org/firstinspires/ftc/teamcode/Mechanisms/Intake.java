@@ -10,7 +10,7 @@ import dev.nextftc.robot.Mechanism;
 
 public class Intake implements Mechanism {
     NextMotor motor = new NextMotor(
-            RobotController.controlHub(),
+            RobotController.expansionHub(),
             MainConfig.Intake.port
     );
 

@@ -16,7 +16,7 @@ public class MainTeleOp extends NextOpMode {
     public MainTeleOp(MainRobot robot) {
         super(robot, BulkReadHook.INSTANCE);
         this.robot = robot;
-        this.robot.init();
+        this.robot.init(gamepad1, gamepad2);
 
         Telemetry.addBackend(FtcDashboard.getInstance().getTelemetry());
     }
@@ -28,7 +28,7 @@ public class MainTeleOp extends NextOpMode {
 
     @Override
     public void start() {
-        robot.manual(gamepad1, gamepad2);
+        robot.manual();
     }
 
     @Override

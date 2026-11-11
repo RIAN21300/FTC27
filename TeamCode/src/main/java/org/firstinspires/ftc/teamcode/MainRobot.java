@@ -15,7 +15,7 @@ import dev.nextftc.robot.NextRobot;
 import dev.nextftc.robot.triggers.CommandGamepad;
 
 public class MainRobot implements NextRobot {
-//    public final RobotCentricMecanum drivetrain = new RobotCentricMecanum();
+    public final RobotCentricMecanum drivetrain = new RobotCentricMecanum();
     public final Intake intake = new Intake();
     public final Shooter shooter = new Shooter();
 
@@ -23,27 +23,36 @@ public class MainRobot implements NextRobot {
     @Override
     public Set<Mechanism> getMechanisms() {
         return Set.of(
-//                drivetrain,
+                drivetrain,
                 intake,
                 shooter
         );
     }
 
-    public void init() {
-//        drivetrain.init();
+    private Gamepad gamepad1, gamepad2;
+    private CommandGamepad driver1, driver2;
+
+    public void init(Gamepad _gamepad1, Gamepad _gamepad2) {
+        gamepad1 = _gamepad1;
+        gamepad2 = _gamepad2;
+        driver1 = new CommandGamepad(gamepad1);
+        driver2 = new CommandGamepad(gamepad2);
+
+        drivetrain.init();
+        shooter.init();
     }
 
-    public void manual(Gamepad gamepad1, Gamepad gamepad2) {
-        CommandGamepad driver2 = new CommandGamepad(gamepad2);
+    public void manual() {
+        drivetrain.manual(gamepad1);
 
-//        drivetrain.manual(gamepad1);
-
-        driver2.rightBumper().toggleOnTrue(intake.runUntilCancel);
-        driver2.leftBumper().toggleOnTrue(shooter.maintainVelocity);
+        driver1.rightBumper().toggleOnTrue(intake.runUntilCancel);
     }
 
     @Override
     public void periodic() {
-        
+        shooter.updateInput(
+                gamepad2.leftBumperWasPressed(),
+                gamepad2.rightBumperWasPressed()
+        );
     }
 }

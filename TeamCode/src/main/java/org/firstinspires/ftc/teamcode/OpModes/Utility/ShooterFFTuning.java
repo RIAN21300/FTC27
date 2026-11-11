@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.OpModes.Utility;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Utility;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-@TeleOp
+@Utility
 public class ShooterFFTuning extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
@@ -14,7 +14,7 @@ public class ShooterFFTuning extends LinearOpMode {
 
         long convergeTime = 20000;
         long waitTime = 20000;
-        for (double power = 0.2; power <= 1.0; power += 0.1)
+        for (double power = 0.4; power <= 1.0; power += 0.1)
         {
             telemetry.addData("Shooter power", power);
             telemetry.update();
