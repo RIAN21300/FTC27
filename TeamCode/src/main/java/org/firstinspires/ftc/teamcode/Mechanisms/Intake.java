@@ -9,12 +9,12 @@ import dev.nextftc.hardware.actuators.NextMotor;
 import dev.nextftc.robot.Mechanism;
 
 public class Intake implements Mechanism {
-    NextMotor motor = new NextMotor(
+    private final NextMotor motor = new NextMotor(
             RobotController.expansionHub(),
             MainConfig.Intake.port
     );
 
-    public  final Command runUntilCancel = Command.build()
+    public final Command runUntilCancel = Command.build()
             .setStart(() -> motor.setThrottle(MainConfig.Intake.power))
             .setEnd(endCondition -> motor.setThrottle(0.0))
             .requiring(motor);

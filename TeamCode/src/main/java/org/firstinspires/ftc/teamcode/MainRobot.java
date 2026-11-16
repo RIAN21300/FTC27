@@ -50,7 +50,7 @@ public class MainRobot implements NextRobot {
 
     @Override
     public void periodic() {
-        shooter.updateInput(
+        shooter.update(
                 gamepad2.leftBumperWasPressed(),
                 gamepad2.rightBumperWasPressed()
         );

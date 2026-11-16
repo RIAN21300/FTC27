@@ -15,12 +15,11 @@ import dev.nextftc.robot.Mechanism;
 import dev.nextftc.robot.Telemetry;
 
 public class Shooter implements Mechanism {
-    NextMotor motor = new NextMotor(
+    private final NextMotor motor = new NextMotor(
             RobotController.expansionHub(),
             MainConfig.Shooter.port
     );
-
-    NextServo servo = new NextServo(
+    private final NextServo servo = new NextServo(
             RobotController.controlHub(),
             MainConfig.Shooter.servoPort
     );
@@ -30,7 +29,6 @@ public class Shooter implements Mechanism {
             MainConfig.Shooter.PIDCoefficient.kI,
             MainConfig.Shooter.PIDCoefficient.kD
     ));
-
     private final SimpleFeedforward ff = new SimpleFeedforward(new SimpleFFCoefficients(
             MainConfig.Shooter.FFCoefficient.kS,
             MainConfig.Shooter.FFCoefficient.kV
@@ -39,11 +37,9 @@ public class Shooter implements Mechanism {
     public double velocity() {
         return motor.getEncoderVelocity().getMagnitude();
     }
-
     private double goalVelocity() {
         return MainConfig.Shooter.relVelocity[state] * MainConfig.Shooter.maxEncoderVelocity;
     }
-
     private double error() {
         return goalVelocity() - velocity();
     }
@@ -55,8 +51,8 @@ public class Shooter implements Mechanism {
     };
     private int state = 0;
     private int input = 0;
-    public void updateInput(boolean button0, boolean button1) {
-        input = (button0 ? 1 : 0) | ((button1 ? 1 : 0) << 1);
+    public void update(boolean pollen, boolean nectar) {
+        input = (pollen ? 1 : 0) | ((nectar ? 1 : 0) << 1);
     }
 
     public void init() {
@@ -73,9 +69,10 @@ public class Shooter implements Mechanism {
                 1.0
         ));
 
-//        servo.setPosition(MainConfig.Shooter.position[state]);
+        servo.setPosition(MainConfig.Shooter.position[state]);
 
         Telemetry.log("Shooter state", state);
+        Telemetry.log("Servo Shooter position", servo.getPosition());
         Telemetry.log("Shooter velocity", velocity());
         Telemetry.log("Shooter max velocity", MainConfig.Shooter.maxEncoderVelocity);
         Telemetry.log("Shooter goal velocity", goalVelocity());

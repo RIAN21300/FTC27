@@ -10,19 +10,19 @@ import dev.nextftc.robot.Mechanism;
 import dev.nextftc.robot.drive.DriveCommands;
 
 public class RobotCentricMecanum implements Mechanism {
-    public final NextMotor frontLeft = new NextMotor(
+    private final NextMotor frontLeft = new NextMotor(
             RobotController.controlHub(),
             MainConfig.Drivetrain.port.front_left
     );
-    public final NextMotor backLeft = new NextMotor(
+    private final NextMotor backLeft = new NextMotor(
             RobotController.controlHub(),
             MainConfig.Drivetrain.port.back_left
     );
-    public final NextMotor backRight = new NextMotor(
+    private final NextMotor backRight = new NextMotor(
             RobotController.controlHub(),
             MainConfig.Drivetrain.port.back_right
     );
-    public final NextMotor frontRight = new NextMotor(
+    private final NextMotor frontRight = new NextMotor(
             RobotController.controlHub(),
             MainConfig.Drivetrain.port.front_right
     );
