@@ -14,6 +14,10 @@ public class Intake implements Mechanism {
             MainConfig.Intake.port
     );
 
+    public void init() {
+        motor.setDirection(NextMotor.Direction.REVERSE);
+    }
+
     public final Command runUntilCancel = Command.build()
             .setStart(() -> motor.setThrottle(MainConfig.Intake.power))
             .setEnd(endCondition -> motor.setThrottle(0.0))

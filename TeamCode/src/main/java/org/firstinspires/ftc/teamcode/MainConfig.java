@@ -15,22 +15,27 @@ public class MainConfig {
         public static final double power = 1.0;
     }
 
+    public static class Transfer {
+        public static final int port = 2;
+        public static final double power = 1.0;
+    }
+
     public static class Shooter {
         public static final int port = 1;
         public static final int servoPort = 0;
         public static final double maxEncoderVelocity = 2000.0;
-        public static final double[] relVelocity = {0.0, 0.3, 0.34};
-        public static final double[] position = {0.45, 0.45, 0.16};
+        public static final double[] relVelocity = {0.0, 5e-2, 0.37};
+        public static final double[] position = {0.36, 0.25, 0.16};
 
         public static class PIDCoefficient {
-            public static final double kP = 8e-3;
+            public static final double kP = 8.5e-3;
             public static final double kI = 0.0;
             public static final double kD = 0.0;
         }
 
         public static class FFCoefficient {
-            public static final double kS = 0.2;
-            public static final double kV = 4e-4;
+            public static final double kS = 0.14505437;
+            public static final double kV = 0.00050435;
         }
     }
 }
